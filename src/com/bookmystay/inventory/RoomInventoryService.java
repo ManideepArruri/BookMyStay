@@ -8,6 +8,14 @@ public class RoomInventoryService {
     private Map<String, Integer> roomInventory;
     private Map<String, Double> roomPrice;
 
+    public Map<String, Integer> getRoomInventory() {
+        return roomInventory;
+    }
+
+    public Map<String, Double> getRoomPrice() {
+        return roomPrice;
+    }
+    
     public RoomInventoryService() {
         roomInventory = new HashMap<>();
         roomPrice = new HashMap<>();
