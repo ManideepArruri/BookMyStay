@@ -2,6 +2,7 @@ package com.bookmystay.app;
 
 import java.util.Scanner;
 
+import com.bookmystay.allocation.RoomAllocationService;
 import com.bookmystay.booking.BookingQueueService;
 import com.bookmystay.inventory.RoomInventoryService;
 import com.bookmystay.search.RoomSearchService;
@@ -19,6 +20,8 @@ public class HotelApp {
                         inventoryService.getRoomInventory(),
                         inventoryService.getRoomPrice());
         BookingQueueService bookingService = new BookingQueueService();
+        RoomAllocationService allocationService =
+                new RoomAllocationService(inventoryService, bookingService);
 
         int choice = 0;
 
@@ -34,7 +37,9 @@ public class HotelApp {
             System.out.println("7 Add Booking Request");
             System.out.println("8 Process Next Booking");
             System.out.println("9 View Booking Queue");
-            System.out.println("10 Exit");
+            System.out.println("10 Confirm Reservation");
+            System.out.println("11 Show Room Allocations");
+            System.out.println("12 Exit");
 
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -109,6 +114,15 @@ public class HotelApp {
                     bookingService.viewQueue();
                     break;
                 case 10:
+
+                    allocationService.confirmReservation();
+                    break;
+
+                case 11:
+
+                    allocationService.showRoomAllocations();
+                    break;
+                case 12:
                     System.out.println("Exiting BookMyStay...");
                     break;
                     
