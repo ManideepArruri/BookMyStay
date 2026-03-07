@@ -10,3 +10,5 @@ Added Reservation Confirmation & Room Allocation
 
 Added Add-On Service Selection
 
+Added Booking History & Reporting
+

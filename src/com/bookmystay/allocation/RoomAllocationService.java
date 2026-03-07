@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.bookmystay.booking.Reservation;
+import com.bookmystay.history.BookingHistoryService;
 import com.bookmystay.booking.BookingQueueService;
 import com.bookmystay.inventory.RoomInventoryService;
 
@@ -16,12 +17,14 @@ public class RoomAllocationService {
 
     private RoomInventoryService inventoryService;
     private BookingQueueService bookingService;
-
+    private BookingHistoryService historyService;
+    
     public RoomAllocationService(RoomInventoryService inventoryService,
-                                 BookingQueueService bookingService) {
+                                 BookingQueueService bookingService,BookingHistoryService historyService) {
 
         this.inventoryService = inventoryService;
         this.bookingService = bookingService;
+        this.historyService = historyService;
 
         bookedRoomIds = new HashSet<>();
         roomAllocations = new HashMap<>();
@@ -31,6 +34,7 @@ public class RoomAllocationService {
     public void confirmReservation() {
 
         Reservation reservation = bookingService.processNextBooking();
+        historyService.addReservation(reservation);
 
         if (reservation == null) {
             return;

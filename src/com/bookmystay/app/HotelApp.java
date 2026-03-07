@@ -8,6 +8,7 @@ import com.bookmystay.inventory.RoomInventoryService;
 import com.bookmystay.search.RoomSearchService;
 import com.bookmystay.service.Service;
 import com.bookmystay.service.ServiceManagement;
+import com.bookmystay.history.BookingHistoryService;
 
 public class HotelApp {
 
@@ -22,13 +23,14 @@ public class HotelApp {
                         inventoryService.getRoomInventory(),
                         inventoryService.getRoomPrice());
         BookingQueueService bookingService = new BookingQueueService();
+        BookingHistoryService historyService = new BookingHistoryService();
         RoomAllocationService allocationService =
-                new RoomAllocationService(inventoryService, bookingService);
+                new RoomAllocationService(inventoryService, bookingService,historyService);
         ServiceManagement serviceManagement = new ServiceManagement();
 
         int choice = 0;
 
-        while (choice != 14) {
+        while (choice != 16) {
 
             System.out.println("\n====== BookMyStay Menu ======");
             System.out.println("1. Add Room Type (Admin)");
@@ -44,7 +46,9 @@ public class HotelApp {
             System.out.println("11 Show Room Allocations");
             System.out.println("12 Add Service to Reservation");
             System.out.println("13 View Reservation Services");
-            System.out.println("14 Exit");
+            System.out.println("14 View Booking History");
+            System.out.println("15 Cancel Reservation");
+            System.out.println("16 Exit");
 
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -168,6 +172,18 @@ public class HotelApp {
                     serviceManagement.showServices(reservationId);
                     break;
                 case 14:
+
+                    historyService.showBookingHistory();
+                    break;
+
+                case 15:
+
+                    System.out.print("Enter Guest Name: ");
+                    String guest = scanner.nextLine();
+
+                    historyService.cancelReservation(guest);
+                    break;
+                case 16:
                     System.out.println("Exiting BookMyStay...");
                     break;
                     
