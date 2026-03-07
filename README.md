@@ -8,3 +8,5 @@ Booking Request (First-Come-First-Served) Managed in Queue Order
 
 Added Reservation Confirmation & Room Allocation
 
+Added Add-On Service Selection
+

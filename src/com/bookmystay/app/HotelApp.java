@@ -6,6 +6,8 @@ import com.bookmystay.allocation.RoomAllocationService;
 import com.bookmystay.booking.BookingQueueService;
 import com.bookmystay.inventory.RoomInventoryService;
 import com.bookmystay.search.RoomSearchService;
+import com.bookmystay.service.Service;
+import com.bookmystay.service.ServiceManagement;
 
 public class HotelApp {
 
@@ -22,10 +24,11 @@ public class HotelApp {
         BookingQueueService bookingService = new BookingQueueService();
         RoomAllocationService allocationService =
                 new RoomAllocationService(inventoryService, bookingService);
+        ServiceManagement serviceManagement = new ServiceManagement();
 
         int choice = 0;
 
-        while (choice != 7) {
+        while (choice != 14) {
 
             System.out.println("\n====== BookMyStay Menu ======");
             System.out.println("1. Add Room Type (Admin)");
@@ -39,7 +42,9 @@ public class HotelApp {
             System.out.println("9 View Booking Queue");
             System.out.println("10 Confirm Reservation");
             System.out.println("11 Show Room Allocations");
-            System.out.println("12 Exit");
+            System.out.println("12 Add Service to Reservation");
+            System.out.println("13 View Reservation Services");
+            System.out.println("14 Exit");
 
             System.out.print("Enter choice: ");
             choice = scanner.nextInt();
@@ -123,6 +128,46 @@ public class HotelApp {
                     allocationService.showRoomAllocations();
                     break;
                 case 12:
+
+                    System.out.print("Enter Reservation ID: ");
+                    String reservationId = scanner.nextLine();
+
+                    System.out.println("Select Service");
+                    System.out.println("1 Breakfast (₹500)");
+                    System.out.println("2 Airport Pickup (₹1200)");
+                    System.out.println("3 Spa (₹2000)");
+
+                    int serviceChoice = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Service service = null;
+
+                    switch(serviceChoice)
+                    {
+                        case 1:
+                            service = new Service("Breakfast",500);
+                            break;
+
+                        case 2:
+                            service = new Service("Airport Pickup",1200);
+                            break;
+
+                        case 3:
+                            service = new Service("Spa",2000);
+                            break;
+                    }
+
+                    serviceManagement.addService(reservationId, service);
+                    break;
+
+                case 13:
+
+                    System.out.print("Enter Reservation ID: ");
+                    reservationId = scanner.nextLine();
+
+                    serviceManagement.showServices(reservationId);
+                    break;
+                case 14:
                     System.out.println("Exiting BookMyStay...");
                     break;
                     
